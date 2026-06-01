@@ -22,7 +22,7 @@ export default function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-none mb-6">
+        <h1 style={{ fontFamily: "'Playfair Display', serif" }} className="text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-none mb-6">
           Wealth now has a{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
             global benchmark.
