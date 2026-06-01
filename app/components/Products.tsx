@@ -1,4 +1,7 @@
+'use client'
 import Link from 'next/link'
+import { LineChart, Line, ResponsiveContainer } from 'recharts'
+import AnimatedSection from './AnimatedSection'
 
 const products = [
   {
@@ -8,6 +11,7 @@ const products = [
     cagr: '16.62%',
     ytd: '+10.0%',
     since: 'Since Jan 2020',
+    data: [100, 108, 125, 138, 145, 135, 152, 168, 188, 205, 228, 248].map(v => ({ v })),
     allocation: [
       { region: 'North America', percent: '40.0%' },
       { region: 'Asia-Pacific', percent: '30.0%' },
@@ -22,6 +26,7 @@ const products = [
     cagr: '16.45%',
     ytd: '+9.4%',
     since: 'Since Jan 2020',
+    data: [100, 105, 118, 128, 133, 125, 140, 155, 168, 182, 198, 212].map(v => ({ v })),
     allocation: [
       { region: 'North America', percent: '36.0%' },
       { region: 'Asia-Pacific', percent: '22.5%' },
@@ -36,6 +41,7 @@ const products = [
     cagr: '—',
     ytd: '+35.4%',
     since: 'Since Jan 2026',
+    data: [100, 112, 125, 135, 148, 135, 142, 158, 175, 195, 218, 235].map(v => ({ v })),
     allocation: [
       { region: 'North America', percent: '41.5%' },
       { region: 'Global / Commodity', percent: '21.5%' },
@@ -49,7 +55,7 @@ export default function Products() {
   return (
     <section className="bg-black py-32 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-16">
+        <AnimatedSection className="mb-16">
           <p className="text-white/30 text-sm uppercase tracking-widest mb-4">The Prisma Family</p>
           <div className="flex items-end justify-between">
             <h2 className="text-4xl md:text-5xl font-bold text-white max-w-lg leading-tight">
@@ -59,45 +65,63 @@ export default function Products() {
               View all products →
             </Link>
           </div>
-        </div>
+        </AnimatedSection>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {products.map((product, i) => (
-            <div key={i} className="border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-300 flex flex-col gap-6">
-              <div className="flex items-center justify-between">
-                <span className="text-blue-400 text-xs font-medium tracking-widest">{product.tag}</span>
-                <span className="w-2 h-2 rounded-full bg-blue-500" />
-              </div>
-              <div>
-                <h3 className="text-white font-semibold text-xl mb-2">{product.name}</h3>
-                <p className="text-white/40 text-sm leading-relaxed">{product.description}</p>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white/5 rounded-xl p-4">
-                  <div className="text-white/30 text-xs mb-1">CAGR (INR)</div>
-                  <div className="text-white font-semibold text-xl">{product.cagr}</div>
+            <AnimatedSection key={i} delay={i * 0.15}>
+              <div className="border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-300 flex flex-col gap-6">
+                <div className="flex items-center justify-between">
+                  <span className="text-blue-400 text-xs font-medium tracking-widest">{product.tag}</span>
+                  <span className="w-2 h-2 rounded-full bg-blue-500" />
                 </div>
-                <div className="bg-white/5 rounded-xl p-4">
-                  <div className="text-white/30 text-xs mb-1">YTD (INR)</div>
-                  <div className="text-green-400 font-semibold text-xl">{product.ytd}</div>
+                <div>
+                  <h3 className="text-white font-semibold text-xl mb-2">{product.name}</h3>
+                  <p className="text-white/40 text-sm leading-relaxed">{product.description}</p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="bg-white/5 rounded-xl p-4">
+                    <div className="text-white/30 text-xs mb-1">CAGR (INR)</div>
+                    <div className="text-white font-semibold text-xl">{product.cagr}</div>
+                  </div>
+                  <div className="bg-white/5 rounded-xl p-4">
+                    <div className="text-white/30 text-xs mb-1">YTD (INR)</div>
+                    <div className="text-green-400 font-semibold text-xl">{product.ytd}</div>
+                  </div>
+                </div>
+
+                {/* Sparkline */}
+                <div>
+                  <div className="text-white/20 text-xs mb-2">{product.since}</div>
+                  <ResponsiveContainer width="100%" height={50}>
+                    <LineChart data={product.data}>
+                      <Line
+                        type="monotone"
+                        dataKey="v"
+                        stroke="#60a5fa"
+                        strokeWidth={1.5}
+                        dot={false}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {product.allocation.map((a, j) => (
+                    <span key={j} className="text-xs text-white/40 border border-white/10 rounded-full px-3 py-1">
+                      {a.region} {a.percent}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-3 mt-auto">
+                  <button className="flex-1 bg-white text-black text-sm font-medium py-2.5 rounded-full hover:bg-white/90 transition-colors">
+                    Invest now
+                  </button>
+                  <Link href="/products" className="flex-1 border border-white/10 text-white text-sm font-medium py-2.5 rounded-full hover:bg-white/5 transition-colors text-center">
+                    Explore
+                  </Link>
                 </div>
               </div>
-              <div className="text-white/20 text-xs">{product.since}</div>
-              <div className="flex flex-wrap gap-2">
-                {product.allocation.map((a, j) => (
-                  <span key={j} className="text-xs text-white/40 border border-white/10 rounded-full px-3 py-1">
-                    {a.region} {a.percent}
-                  </span>
-                ))}
-              </div>
-              <div className="flex gap-3 mt-auto">
-                <button className="flex-1 bg-white text-black text-sm font-medium py-2.5 rounded-full hover:bg-white/90 transition-colors">
-                  Invest now
-                </button>
-                <Link href="/products" className="flex-1 border border-white/10 text-white text-sm font-medium py-2.5 rounded-full hover:bg-white/5 transition-colors text-center">
-                  Explore
-                </Link>
-              </div>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>
