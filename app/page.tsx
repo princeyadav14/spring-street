@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Stats from './components/Stats'
+import WhyGlobal from './components/WhyGlobal'
 import Products from './components/Products'
 import Footer from './components/Footer'
 
@@ -10,6 +11,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Stats />
+      <WhyGlobal />
       <Products />
       <Footer />
     </main>
