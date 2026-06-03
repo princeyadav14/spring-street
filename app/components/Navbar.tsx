@@ -35,9 +35,9 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <img 
-              src="/springstreet-wordmark.png" 
-              alt="Spring Street" 
+            <img
+              src="/springstreet-wordmark.png"
+              alt="Spring Street"
               className="h-10 w-auto object-contain"
               style={{ filter: 'brightness(0) invert(1)' }}
             />
@@ -45,23 +45,68 @@ export default function Navbar() {
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/products" className="text-sm transition-colors duration-200" style={{ color: 'rgba(255,255,255,0.6)' }}>
-              Products
-            </Link>
-            <Link href="/about" className="text-sm transition-colors duration-200" style={{ color: 'rgba(255,255,255,0.6)' }}>
-              About Us
-            </Link>
-            <Link href="/contact" className="text-sm transition-colors duration-200" style={{ color: 'rgba(255,255,255,0.6)' }}>
-              Contact
-            </Link>
+            {[
+              { href: '/products', label: 'Products' },
+              { href: '/about', label: 'About Us' },
+              { href: '/contact', label: 'Contact' },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm relative group"
+                style={{ color: 'rgba(255,255,255,0.6)' }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'white')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
+              >
+                {link.label}
+                {/* Underline effect */}
+                <span
+                  className="absolute -bottom-1 left-0 w-0 h-[1.5px] group-hover:w-full transition-all duration-300"
+                  style={{ backgroundColor: '#60a5fa' }}
+                />
+              </Link>
+            ))}
           </div>
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Link href="/login" className="text-sm transition-colors duration-200" style={{ color: 'rgba(255,255,255,0.6)' }}>
+            <Link
+              href="/login"
+              className="text-sm transition-all duration-200 px-3 py-1.5 rounded-full"
+              style={{ color: 'rgba(255,255,255,0.6)' }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.color = 'white'
+                el.style.backgroundColor = 'rgba(255,255,255,0.08)'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.color = 'rgba(255,255,255,0.6)'
+                el.style.backgroundColor = 'transparent'
+              }}
+            >
               Sign in
             </Link>
-            <Link href="/contact" className="text-sm font-medium px-4 py-2 rounded-full text-white transition-colors" style={{ backgroundColor: '#2563eb' }}>
+            <Link
+              href="/contact"
+              className="text-sm font-medium px-4 py-2 rounded-full text-white transition-all duration-200"
+              style={{
+                backgroundColor: '#2563eb',
+                boxShadow: '0 2px 10px rgba(37,99,235,0.3)'
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.backgroundColor = '#1d4ed8'
+                el.style.boxShadow = '0 4px 15px rgba(37,99,235,0.5)'
+                el.style.transform = 'translateY(-1px)'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLAnchorElement
+                el.style.backgroundColor = '#2563eb'
+                el.style.boxShadow = '0 2px 10px rgba(37,99,235,0.3)'
+                el.style.transform = 'translateY(0)'
+              }}
+            >
               Request access
             </Link>
           </div>
@@ -89,35 +134,37 @@ export default function Navbar() {
       {menuOpen && (
         <div className="fixed inset-0 z-40 flex flex-col pt-16" style={{ backgroundColor: '#12151f' }}>
           <div className="flex flex-col gap-2 p-6">
-            <Link href="/products" onClick={() => setMenuOpen(false)}
-              className="text-white text-2xl font-medium py-4 border-b"
-              style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-              Products
-            </Link>
-            <Link href="/about" onClick={() => setMenuOpen(false)}
-              className="text-white text-2xl font-medium py-4 border-b"
-              style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-              About Us
-            </Link>
-            <Link href="/contact" onClick={() => setMenuOpen(false)}
-              className="text-white text-2xl font-medium py-4 border-b"
-              style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-              Contact
-            </Link>
-            <Link href="/faq" onClick={() => setMenuOpen(false)}
-              className="text-white text-2xl font-medium py-4 border-b"
-              style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-              FAQ
-            </Link>
+            {[
+              { href: '/products', label: 'Products' },
+              { href: '/about', label: 'About Us' },
+              { href: '/contact', label: 'Contact' },
+              { href: '/faq', label: 'FAQ' },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                className="text-white text-2xl font-medium py-4 border-b"
+                style={{ borderColor: 'rgba(255,255,255,0.06)' }}
+              >
+                {link.label}
+              </Link>
+            ))}
             <div className="flex flex-col gap-3 mt-8">
-              <Link href="/contact" onClick={() => setMenuOpen(false)}
+              <Link
+                href="/contact"
+                onClick={() => setMenuOpen(false)}
                 className="text-center font-medium py-3.5 rounded-full text-white text-sm"
-                style={{ backgroundColor: '#2563eb' }}>
+                style={{ backgroundColor: '#2563eb' }}
+              >
                 Request access
               </Link>
-              <Link href="/login" onClick={() => setMenuOpen(false)}
+              <Link
+                href="/login"
+                onClick={() => setMenuOpen(false)}
                 className="text-center font-medium py-3.5 rounded-full text-white text-sm"
-                style={{ border: '1px solid rgba(255,255,255,0.2)' }}>
+                style={{ border: '1px solid rgba(255,255,255,0.2)' }}
+              >
                 Sign in
               </Link>
             </div>

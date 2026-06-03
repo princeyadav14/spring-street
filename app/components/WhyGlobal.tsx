@@ -30,7 +30,11 @@ const reasons = [
 ]
 
 export default function WhyGlobal() {
-  const [active, setActive] = useState(0)
+  const [active, setActive] = useState<number | null>(null)
+  const [hovered, setHovered] = useState<number | null>(null)
+  const [cardHovered, setCardHovered] = useState(false)
+
+  const currentIndex = active ?? 0
 
   return (
     <section className="py-32" style={{ backgroundColor: '#12151f' }}>
@@ -40,7 +44,9 @@ export default function WhyGlobal() {
           <p className="text-sm uppercase tracking-widest mb-4" style={{ color: '#60a5fa' }}>
             Why Spring Street
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white max-w-2xl leading-tight">
+          <h2 className="text-4xl md:text-5xl font-bold text-white max-w-2xl leading-tight" style={{
+            fontFamily: "'Playfair Display', serif"
+          }}>
             Investing without borders.
           </h2>
         </AnimatedSection>
@@ -48,22 +54,44 @@ export default function WhyGlobal() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
           {/* Left — Clickable tabs */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-3">
             {reasons.map((reason, i) => (
               <div
                 key={i}
                 onClick={() => setActive(i)}
-                className="cursor-pointer rounded-2xl p-6 transition-all duration-300"
+                onMouseEnter={() => setHovered(i)}
+                onMouseLeave={() => setHovered(null)}
+                className="cursor-pointer rounded-2xl p-6"
                 style={{
-                  backgroundColor: active === i ? 'rgba(37,99,235,0.15)' : 'rgba(255,255,255,0.03)',
-                  border: active === i ? '1px solid rgba(37,99,235,0.4)' : '1px solid rgba(255,255,255,0.06)',
+                  backgroundColor: active === i
+                    ? 'rgba(37,99,235,0.12)'
+                    : hovered === i
+                    ? 'rgba(255,255,255,0.05)'
+                    : 'rgba(255,255,255,0.03)',
+                  border: active === i
+                    ? '1px solid rgba(37,99,235,0.35)'
+                    : hovered === i
+                    ? '1px solid rgba(255,255,255,0.12)'
+                    : '1px solid rgba(255,255,255,0.07)',
+                  transform: hovered === i && active !== i ? 'translateX(4px)' : 'translateX(0)',
+                  transition: 'all 0.25s ease',
                 }}
               >
                 <div className="flex items-center gap-4 mb-2">
-                  <span className="text-xs font-mono" style={{ color: active === i ? '#60a5fa' : 'rgba(255,255,255,0.2)' }}>
+                  <span className="text-xs font-mono" style={{
+                    color: active === i
+                      ? '#60a5fa'
+                      : 'rgba(255,255,255,0.3)'
+                  }}>
                     {reason.number}
                   </span>
-                  <h3 className="font-semibold" style={{ color: active === i ? 'white' : 'rgba(255,255,255,0.5)' }}>
+                  <h3 className="font-semibold text-base" style={{
+                    color: active === i
+                      ? 'white'
+                      : hovered === i
+                      ? 'rgba(255,255,255,0.8)'
+                      : 'rgba(255,255,255,0.6)'
+                  }}>
                     {reason.title}
                   </h3>
                 </div>
@@ -78,22 +106,31 @@ export default function WhyGlobal() {
 
           {/* Right — Active stat display */}
           <AnimatedSection>
-            <div className="rounded-2xl p-10 text-center" style={{
-              backgroundColor: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.08)',
-            }}>
+            <div
+              className="rounded-2xl p-10 text-center"
+              onMouseEnter={() => setCardHovered(true)}
+              onMouseLeave={() => setCardHovered(false)}
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                transition: 'all 0.3s ease',
+                transform: cardHovered ? 'translateY(-6px)' : 'translateY(0)',
+              }}
+            >
               <div className="text-7xl md:text-8xl font-bold mb-4" style={{
                 background: 'linear-gradient(135deg, #60a5fa, #2563eb)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent'
               }}>
-                {reasons[active]?.stat}
+                {reasons[currentIndex]?.stat}
               </div>
+
               <div className="text-white font-medium text-xl mb-6">
-                {reasons[active]?.statLabel}
+                {reasons[currentIndex]?.statLabel}
               </div>
+
               <div className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                {reasons[active]?.detail}
+                {reasons[currentIndex]?.detail}
               </div>
             </div>
           </AnimatedSection>

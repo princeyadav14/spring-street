@@ -158,21 +158,29 @@ export default function ProductsPage() {
       </section>
 
       {/* How it works */}
-      <section className="py-20 px-6 max-w-7xl mx-auto" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-        <p className="text-sm uppercase tracking-widest mb-12" style={{ color: '#60a5fa' }}>How it works</p>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {steps.map((step, i) => (
-            <div key={i} className="rounded-2xl p-8" style={{
-              backgroundColor: 'rgba(255,255,255,0.04)',
-              border: '1px solid rgba(255,255,255,0.08)'
-            }}>
-              <div className="text-sm font-mono mb-4" style={{ color: '#60a5fa' }}>{step.number}</div>
-              <div className="text-white font-semibold text-lg mb-2">{step.title}</div>
-              <div className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{step.description}</div>
-            </div>
-          ))}
+<section className="py-24 px-6" style={{ backgroundColor: '#f0f4ff' }}>
+  <div className="max-w-7xl mx-auto">
+    <div className="text-center mb-16">
+      <p className="text-sm uppercase tracking-widest mb-4" style={{ color: '#2563eb' }}>How it works</p>
+      <h2 className="text-4xl font-bold" style={{ color: '#0f172a', fontFamily: "'Playfair Display', serif" }}>
+        Four steps to global wealth.
+      </h2>
+    </div>
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      {steps.map((step, i) => (
+        <div key={i} className="rounded-2xl p-8 relative" style={{
+          backgroundColor: 'white',
+          border: '1px solid rgba(37,99,235,0.1)',
+          boxShadow: '0 4px 24px rgba(37,99,235,0.06)'
+        }}>
+          <div className="text-3xl font-bold mb-6" style={{ color: 'rgba(37,99,235,0.15)' }}>{step.number}</div>
+          <div className="text-lg font-semibold mb-2" style={{ color: '#0f172a' }}>{step.title}</div>
+          <div className="text-sm leading-relaxed" style={{ color: '#64748b' }}>{step.description}</div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       <Footer />
     </main>
