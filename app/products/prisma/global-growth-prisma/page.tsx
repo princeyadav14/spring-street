@@ -1,5 +1,5 @@
- import Navbar from '../../../components/Navbar'
-import Footer from '../../../components/Footer'
+import Navbar from '../../../../app/components/Navbar'
+import Footer from '../../../../app/components/Footer'
 import Link from 'next/link'
 
 const holdings = [
@@ -23,39 +23,43 @@ const metrics = [
 ]
 
 const allocation = [
-  { region: 'North America', percent: 40, color: 'bg-blue-500' },
-  { region: 'Asia-Pacific', percent: 30, color: 'bg-blue-400' },
-  { region: 'South America', percent: 15, color: 'bg-blue-300' },
-  { region: 'Europe', percent: 15, color: 'bg-blue-200' },
+  { region: 'North America', percent: 40 },
+  { region: 'Asia-Pacific', percent: 30 },
+  { region: 'South America', percent: 15 },
+  { region: 'Europe', percent: 15 },
 ]
 
 export default function PrismaDetailPage() {
   return (
-    <main className="bg-black min-h-screen">
+    <main style={{ backgroundColor: '#12151f' }} className="min-h-screen">
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-40 pb-20 px-6 max-w-7xl mx-auto border-b border-white/5">
+      <section className="pt-40 pb-20 px-6 max-w-7xl mx-auto" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <span className="text-blue-400 text-xs font-medium tracking-widest border border-blue-400/30 rounded-full px-3 py-1">
+              <span className="text-xs font-medium tracking-widest px-3 py-1 rounded-full" style={{
+                color: '#60a5fa',
+                backgroundColor: 'rgba(37,99,235,0.15)',
+                border: '1px solid rgba(37,99,235,0.2)'
+              }}>
                 FLEXI-CAP
               </span>
-              <span className="text-white/20 text-xs">Since Jan 2020</span>
+              <span className="text-xs" style={{ color: 'rgba(255,255,255,0.2)' }}>Since Jan 2020</span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
+            <h1 style={{ fontFamily: "'Playfair Display', serif" }} className="text-5xl md:text-6xl font-bold text-white mb-4">
               Global Growth Prisma
             </h1>
-            <p className="text-white/40 text-lg max-w-2xl leading-relaxed">
+            <p className="text-lg max-w-2xl leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
               A globally diversified equity allocation across developed and emerging markets. Built on a proprietary methodology, rebalanced periodically, engineered to compound steadily across market cycles.
             </p>
           </div>
           <div className="flex gap-3 flex-shrink-0">
-            <button className="bg-white text-black font-medium px-8 py-3.5 rounded-full hover:bg-white/90 transition-colors text-sm">
+            <button className="font-medium px-8 py-3.5 rounded-full text-white text-sm" style={{ backgroundColor: '#2563eb' }}>
               Invest now
             </button>
-            <Link href="/contact" className="border border-white/20 text-white font-medium px-8 py-3.5 rounded-full hover:bg-white/5 transition-colors text-sm">
+            <Link href="/contact" className="font-medium px-8 py-3.5 rounded-full text-white text-sm" style={{ border: '1px solid rgba(255,255,255,0.2)' }}>
               Request access
             </Link>
           </div>
@@ -63,17 +67,19 @@ export default function PrismaDetailPage() {
       </section>
 
       {/* Metrics */}
-      <section className="py-16 px-6 max-w-7xl mx-auto border-b border-white/5">
-        <p className="text-white/30 text-sm uppercase tracking-widest mb-8">Performance Metrics</p>
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-px bg-white/5">
+      <section className="py-16 px-6 max-w-7xl mx-auto" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <p className="text-xs uppercase tracking-widest mb-8" style={{ color: '#60a5fa' }}>Performance Metrics</p>
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
           {metrics.map((metric, i) => (
-            <div key={i} className="bg-black p-6">
-              <div className="text-white/30 text-xs mb-2">{metric.label}</div>
-              <div className={`text-2xl font-bold ${
-                metric.positive === true ? 'text-green-400' :
-                metric.positive === false ? 'text-red-400' :
-                'text-white'
-              }`}>
+            <div key={i} className="rounded-2xl p-6" style={{
+              backgroundColor: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.08)'
+            }}>
+              <div className="text-xs mb-2" style={{ color: 'rgba(255,255,255,0.3)' }}>{metric.label}</div>
+              <div className="text-2xl font-bold" style={{
+                color: metric.positive === true ? '#4ade80' :
+                  metric.positive === false ? '#f87171' : 'white'
+              }}>
                 {metric.value}
               </div>
             </div>
@@ -81,25 +87,25 @@ export default function PrismaDetailPage() {
         </div>
       </section>
 
-      {/* Allocation + Holdings */}
-      <section className="py-16 px-6 max-w-7xl mx-auto border-b border-white/5">
+      {/* Allocation + Methodology */}
+      <section className="py-16 px-6 max-w-7xl mx-auto" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
           {/* Allocation */}
           <div>
-            <p className="text-white/30 text-sm uppercase tracking-widest mb-8">Geographic Allocation</p>
+            <p className="text-xs uppercase tracking-widest mb-8" style={{ color: '#60a5fa' }}>Geographic Allocation</p>
             <div className="flex flex-col gap-4">
               {allocation.map((a, i) => (
                 <div key={i}>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-white text-sm">{a.region}</span>
-                    <span className="text-white/40 text-sm">{a.percent}%</span>
+                    <span className="text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>{a.percent}%</span>
                   </div>
-                  <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full ${a.color} rounded-full`}
-                      style={{ width: `${a.percent}%` }}
-                    />
+                  <div className="h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}>
+                    <div className="h-full rounded-full" style={{
+                      width: `${a.percent}%`,
+                      background: 'linear-gradient(90deg, #2563eb, #60a5fa)'
+                    }} />
                   </div>
                 </div>
               ))}
@@ -108,54 +114,56 @@ export default function PrismaDetailPage() {
 
           {/* Methodology */}
           <div>
-            <p className="text-white/30 text-sm uppercase tracking-widest mb-8">Methodology</p>
+            <p className="text-xs uppercase tracking-widest mb-8" style={{ color: '#60a5fa' }}>Methodology</p>
             <div className="flex flex-col gap-6">
-              <div className="border-l border-blue-500/40 pl-4">
-                <div className="text-white font-medium mb-1">Factor-Based Selection</div>
-                <div className="text-white/40 text-sm leading-relaxed">ETFs selected based on value, momentum, and quality factors across global markets.</div>
-              </div>
-              <div className="border-l border-blue-500/40 pl-4">
-                <div className="text-white font-medium mb-1">Annual Rebalancing</div>
-                <div className="text-white/40 text-sm leading-relaxed">Portfolio rebalanced once per year to maintain target allocations and capture rebalancing alpha.</div>
-              </div>
-              <div className="border-l border-blue-500/40 pl-4">
-                <div className="text-white font-medium mb-1">Tax Optimisation</div>
-                <div className="text-white/40 text-sm leading-relaxed">Strategy accounts for LRS remittance limits and DTAA benefits for Indian investors.</div>
-              </div>
-              <div className="border-l border-blue-500/40 pl-4">
-                <div className="text-white font-medium mb-1">Risk Management</div>
-                <div className="text-white/40 text-sm leading-relaxed">Drawdown limits and volatility targets embedded in the construction process.</div>
-              </div>
+              {[
+                { title: 'Factor-Based Selection', desc: 'ETFs selected based on value, momentum, and quality factors across global markets.' },
+                { title: 'Annual Rebalancing', desc: 'Portfolio rebalanced once per year to maintain target allocations and capture rebalancing alpha.' },
+                { title: 'Tax Optimisation', desc: 'Strategy accounts for LRS remittance limits and DTAA benefits for Indian investors.' },
+                { title: 'Risk Management', desc: 'Drawdown limits and volatility targets embedded in the construction process.' },
+              ].map((item, i) => (
+                <div key={i} className="pl-4" style={{ borderLeft: '2px solid rgba(37,99,235,0.4)' }}>
+                  <div className="text-white font-medium mb-1">{item.title}</div>
+                  <div className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{item.desc}</div>
+                </div>
+              ))}
             </div>
           </div>
-
         </div>
       </section>
 
       {/* Holdings Table */}
-      <section className="py-16 px-6 max-w-7xl mx-auto border-b border-white/5">
-        <p className="text-white/30 text-sm uppercase tracking-widest mb-8">Current Holdings</p>
-        <div className="border border-white/10 rounded-2xl overflow-hidden">
+      <section className="py-16 px-6 max-w-7xl mx-auto" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <p className="text-xs uppercase tracking-widest mb-8" style={{ color: '#60a5fa' }}>Current Holdings</p>
+        <div className="rounded-2xl overflow-hidden" style={{
+          border: '1px solid rgba(255,255,255,0.08)'
+        }}>
           <table className="w-full">
             <thead>
-              <tr className="border-b border-white/5">
-                <th className="text-left text-white/30 text-xs uppercase tracking-widest px-6 py-4">ETF Name</th>
-                <th className="text-left text-white/30 text-xs uppercase tracking-widest px-6 py-4">Ticker</th>
-                <th className="text-left text-white/30 text-xs uppercase tracking-widest px-6 py-4">Region</th>
-                <th className="text-right text-white/30 text-xs uppercase tracking-widest px-6 py-4">Weight</th>
+              <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', backgroundColor: 'rgba(255,255,255,0.03)' }}>
+                <th className="text-left px-6 py-4 text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>ETF Name</th>
+                <th className="text-left px-6 py-4 text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Ticker</th>
+                <th className="text-left px-6 py-4 text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Region</th>
+                <th className="text-right px-6 py-4 text-xs uppercase tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>Weight</th>
               </tr>
             </thead>
             <tbody>
               {holdings.map((holding, i) => (
-                <tr key={i} className="border-b border-white/5 last:border-0 hover:bg-white/[0.02] transition-colors">
+                <tr key={i} className="hover:bg-white/[0.02] transition-colors" style={{
+                  borderBottom: i < holdings.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none'
+                }}>
                   <td className="px-6 py-4 text-white text-sm">{holding.name}</td>
                   <td className="px-6 py-4">
-                    <span className="text-blue-400 text-xs font-mono border border-blue-400/20 rounded px-2 py-1">
+                    <span className="text-xs font-mono px-2 py-1 rounded" style={{
+                      color: '#60a5fa',
+                      backgroundColor: 'rgba(37,99,235,0.15)',
+                      border: '1px solid rgba(37,99,235,0.2)'
+                    }}>
                       {holding.ticker}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-white/40 text-sm">{holding.region}</td>
-                  <td className="px-6 py-4 text-white text-sm text-right font-medium">{holding.weight}</td>
+                  <td className="px-6 py-4 text-sm" style={{ color: 'rgba(255,255,255,0.4)' }}>{holding.region}</td>
+                  <td className="px-6 py-4 text-sm text-right font-medium text-white">{holding.weight}</td>
                 </tr>
               ))}
             </tbody>
@@ -165,14 +173,17 @@ export default function PrismaDetailPage() {
 
       {/* CTA */}
       <section className="py-20 px-6 max-w-7xl mx-auto">
-        <div className="border border-white/10 rounded-2xl p-12 text-center">
+        <div className="rounded-2xl p-12 text-center" style={{
+          background: 'linear-gradient(135deg, rgba(37,99,235,0.2) 0%, rgba(124,58,237,0.2) 100%)',
+          border: '1px solid rgba(37,99,235,0.2)'
+        }}>
           <h2 className="text-3xl font-bold text-white mb-4">Ready to invest globally?</h2>
-          <p className="text-white/40 mb-8">Join Indian investors building globally diversified portfolios with Spring Street.</p>
+          <p className="mb-8" style={{ color: 'rgba(255,255,255,0.4)' }}>Join Indian investors building globally diversified portfolios with Spring Street.</p>
           <div className="flex gap-4 justify-center">
-            <button className="bg-white text-black font-medium px-8 py-3.5 rounded-full hover:bg-white/90 transition-colors text-sm">
+            <button className="font-medium px-8 py-3.5 rounded-full text-white text-sm" style={{ backgroundColor: '#2563eb' }}>
               Invest now
             </button>
-            <Link href="/contact" className="border border-white/20 text-white font-medium px-8 py-3.5 rounded-full hover:bg-white/5 transition-colors text-sm">
+            <Link href="/contact" className="font-medium px-8 py-3.5 rounded-full text-white text-sm" style={{ border: '1px solid rgba(255,255,255,0.2)' }}>
               Talk to us
             </Link>
           </div>

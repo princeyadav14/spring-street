@@ -87,13 +87,13 @@ export default function WhyGlobal() {
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent'
               }}>
-                {reasons[active].stat}
+                {reasons[active]?.stat}
               </div>
               <div className="text-white font-medium text-xl mb-6">
-                {reasons[active].statLabel}
+                {reasons[active]?.statLabel}
               </div>
               <div className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
-                {reasons[active].detail}
+                {reasons[active]?.detail}
               </div>
             </div>
           </AnimatedSection>

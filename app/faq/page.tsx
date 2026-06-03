@@ -1,4 +1,4 @@
- 'use client'
+'use client'
 import { useState } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -21,7 +21,7 @@ const faqs = [
       },
       {
         q: 'How does Spring Street enable resident Indians to invest globally?',
-        a: 'Spring Street operates through GIFT City (Gujarat International Finance Tec-City), an IFSCA-regulated platform. Indian residents can remit up to $250,000 per year under the RBI Liberalised Remittance Scheme (LRS) to invest globally through us.',
+        a: 'Spring Street operates through GIFT City, an IFSCA-regulated platform. Indian residents can remit up to $250,000 per year under the RBI Liberalised Remittance Scheme (LRS) to invest globally through us.',
       },
     ],
   },
@@ -65,17 +65,22 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
   return (
     <div
-      className="border-b border-white/5 cursor-pointer group"
+      className="cursor-pointer transition-all duration-200"
+      style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}
       onClick={() => setOpen(!open)}
     >
       <div className="flex items-center justify-between py-5 gap-4">
         <span className="text-white text-sm font-medium">{q}</span>
-        <span className={`text-white/40 text-lg flex-shrink-0 transition-transform duration-200 ${open ? 'rotate-45' : ''}`}>
+        <span className="flex-shrink-0 text-lg transition-transform duration-200"
+          style={{
+            color: '#60a5fa',
+            transform: open ? 'rotate(45deg)' : 'none'
+          }}>
           +
         </span>
       </div>
       {open && (
-        <div className="pb-5 text-white/40 text-sm leading-relaxed">
+        <div className="pb-5 text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
           {a}
         </div>
       )}
@@ -85,16 +90,16 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export default function FAQPage() {
   return (
-    <main className="bg-black min-h-screen">
+    <main style={{ backgroundColor: '#12151f' }} className="min-h-screen">
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-40 pb-20 px-6 max-w-7xl mx-auto border-b border-white/5">
-        <p className="text-white/30 text-sm uppercase tracking-widest mb-4">FAQ</p>
-        <h1 className="text-5xl md:text-7xl font-bold text-white max-w-2xl leading-tight mb-6">
+      <section className="pt-40 pb-20 px-6 max-w-7xl mx-auto" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <p className="text-sm uppercase tracking-widest mb-4" style={{ color: '#60a5fa' }}>FAQ</p>
+        <h1 style={{ fontFamily: "'Playfair Display', serif" }} className="text-5xl md:text-7xl font-bold text-white max-w-2xl leading-tight mb-6">
           Common questions.
         </h1>
-        <p className="text-white/40 text-xl max-w-xl leading-relaxed">
+        <p className="text-xl max-w-xl leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
           Everything you need to know about Prisma, GIFT City, ViewTrade, funding, taxes, and getting started.
         </p>
       </section>
@@ -104,13 +109,18 @@ export default function FAQPage() {
         <div className="max-w-3xl mx-auto flex flex-col gap-16">
           {faqs.map((category, i) => (
             <div key={i}>
-              <p className="text-white/30 text-xs uppercase tracking-widest mb-6">
+              <p className="text-xs uppercase tracking-widest mb-6" style={{ color: '#60a5fa' }}>
                 {category.category}
               </p>
-              <div>
-                {category.questions.map((item, j) => (
-                  <FAQItem key={j} q={item.q} a={item.a} />
-                ))}
+              <div className="rounded-2xl overflow-hidden" style={{
+                backgroundColor: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.08)'
+              }}>
+                <div className="px-6">
+                  {category.questions.map((item, j) => (
+                    <FAQItem key={j} q={item.q} a={item.a} />
+                  ))}
+                </div>
               </div>
             </div>
           ))}
@@ -118,11 +128,11 @@ export default function FAQPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6 max-w-7xl mx-auto border-t border-white/5">
+      <section className="py-20 px-6 max-w-7xl mx-auto" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-white mb-4">Still have questions?</h2>
-          <p className="text-white/40 mb-8">Our team is happy to help you get started.</p>
-          <a href="/contact" className="bg-white text-black font-medium px-8 py-3.5 rounded-full hover:bg-white/90 transition-colors text-sm inline-block">
+          <p className="mb-8" style={{ color: 'rgba(255,255,255,0.4)' }}>Our team is happy to help you get started.</p>
+          <a href="/contact" className="font-medium px-8 py-3.5 rounded-full text-white text-sm inline-block" style={{ backgroundColor: '#2563eb' }}>
             Contact us →
           </a>
         </div>

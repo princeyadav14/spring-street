@@ -1,6 +1,8 @@
+'use client'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import Link from 'next/link'
+import { LineChart, Line, ResponsiveContainer } from 'recharts'
 
 const products = [
   {
@@ -11,6 +13,7 @@ const products = [
     ytd: '+10.0%',
     since: 'Since Jan 2020',
     slug: 'global-growth-prisma',
+    data: [100, 108, 125, 138, 145, 135, 152, 168, 188, 205, 228, 248].map(v => ({ v })),
     allocation: [
       { region: 'North America', percent: '40.0%' },
       { region: 'Asia-Pacific', percent: '30.0%' },
@@ -26,6 +29,7 @@ const products = [
     ytd: '+9.4%',
     since: 'Since Jan 2020',
     slug: 'global-core-prisma',
+    data: [100, 105, 118, 128, 133, 125, 140, 155, 168, 182, 198, 212].map(v => ({ v })),
     allocation: [
       { region: 'North America', percent: '36.0%' },
       { region: 'Asia-Pacific', percent: '22.5%' },
@@ -41,6 +45,7 @@ const products = [
     ytd: '+35.4%',
     since: 'Since Jan 2026',
     slug: 'global-advantage-prisma',
+    data: [100, 112, 125, 135, 148, 135, 142, 158, 175, 195, 218, 235].map(v => ({ v })),
     allocation: [
       { region: 'North America', percent: '41.5%' },
       { region: 'Global / Commodity', percent: '21.5%' },
@@ -59,26 +64,30 @@ const steps = [
 
 export default function ProductsPage() {
   return (
-    <main className="bg-black min-h-screen">
+    <main style={{ backgroundColor: '#12151f' }} className="min-h-screen">
       <Navbar />
 
       {/* Hero */}
-      <section className="pt-40 pb-20 px-6 max-w-7xl mx-auto">
-        <p className="text-white/30 text-sm uppercase tracking-widest mb-4">Products</p>
-        <h1 className="text-5xl md:text-7xl font-bold text-white max-w-3xl leading-tight mb-6">
+      <section className="pt-40 pb-20 px-6 max-w-7xl mx-auto" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+        <p className="text-sm uppercase tracking-widest mb-4" style={{ color: '#60a5fa' }}>Products</p>
+        <h1 style={{ fontFamily: "'Playfair Display', serif" }} className="text-5xl md:text-7xl font-bold text-white max-w-3xl leading-tight mb-6">
           Prisma: Global investing,{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+          <span style={{
+            background: 'linear-gradient(135deg, #60a5fa 0%, #2563eb 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent'
+          }}>
             treated as a scientific problem.
           </span>
         </h1>
-        <p className="text-white/40 text-xl max-w-2xl leading-relaxed mb-10">
+        <p className="text-xl max-w-2xl leading-relaxed mb-10" style={{ color: 'rgba(255,255,255,0.4)' }}>
           Global portfolios built from systematic investing grounded in economic theory. The discipline is the edge.
         </p>
         <div className="flex gap-4">
-          <Link href="/contact" className="bg-white text-black font-medium px-8 py-3.5 rounded-full hover:bg-white/90 transition-colors text-sm">
+          <Link href="/contact" className="font-medium px-8 py-3.5 rounded-full text-white text-sm" style={{ backgroundColor: '#2563eb' }}>
             Request access →
           </Link>
-          <Link href="#products" className="border border-white/20 text-white font-medium px-8 py-3.5 rounded-full hover:bg-white/5 transition-colors text-sm">
+          <Link href="#products" className="font-medium px-8 py-3.5 rounded-full text-white text-sm" style={{ border: '1px solid rgba(255,255,255,0.2)' }}>
             View all products
           </Link>
         </div>
@@ -86,41 +95,60 @@ export default function ProductsPage() {
 
       {/* Products */}
       <section id="products" className="py-20 px-6 max-w-7xl mx-auto">
-        <p className="text-white/30 text-sm uppercase tracking-widest mb-12">The Prisma Family</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <p className="text-sm uppercase tracking-widest mb-12" style={{ color: '#60a5fa' }}>The Prisma Family</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {products.map((product, i) => (
-            <div key={i} className="border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-300 flex flex-col gap-6">
+            <div key={i} className="rounded-2xl p-6 flex flex-col gap-5 hover:translate-y-[-4px] transition-all duration-300" style={{
+              backgroundColor: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.08)',
+            }}>
               <div className="flex items-center justify-between">
-                <span className="text-blue-400 text-xs font-medium tracking-widest">{product.tag}</span>
+                <span className="text-xs font-medium tracking-widest px-3 py-1 rounded-full" style={{
+                  color: '#60a5fa',
+                  backgroundColor: 'rgba(37,99,235,0.15)',
+                  border: '1px solid rgba(37,99,235,0.2)'
+                }}>
+                  {product.tag}
+                </span>
                 <span className="w-2 h-2 rounded-full bg-blue-500" />
               </div>
               <div>
                 <h3 className="text-white font-semibold text-xl mb-2">{product.name}</h3>
-                <p className="text-white/40 text-sm leading-relaxed">{product.description}</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{product.description}</p>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white/5 rounded-xl p-4">
-                  <div className="text-white/30 text-xs mb-1">CAGR (INR)</div>
+                <div className="rounded-xl p-4" style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
+                  <div className="text-xs mb-1" style={{ color: 'rgba(255,255,255,0.3)' }}>CAGR (INR)</div>
                   <div className="text-white font-semibold text-xl">{product.cagr}</div>
                 </div>
-                <div className="bg-white/5 rounded-xl p-4">
-                  <div className="text-white/30 text-xs mb-1">YTD (INR)</div>
-                  <div className="text-green-400 font-semibold text-xl">{product.ytd}</div>
+                <div className="rounded-xl p-4" style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
+                  <div className="text-xs mb-1" style={{ color: 'rgba(255,255,255,0.3)' }}>YTD (INR)</div>
+                  <div className="font-semibold text-xl" style={{ color: '#4ade80' }}>{product.ytd}</div>
                 </div>
               </div>
-              <div className="text-white/20 text-xs">{product.since}</div>
+              <div>
+                <div className="text-xs mb-2" style={{ color: 'rgba(255,255,255,0.2)' }}>{product.since}</div>
+                <ResponsiveContainer width="100%" height={50}>
+                  <LineChart data={product.data}>
+                    <Line type="monotone" dataKey="v" stroke="#2563eb" strokeWidth={1.5} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
               <div className="flex flex-wrap gap-2">
                 {product.allocation.map((a, j) => (
-                  <span key={j} className="text-xs text-white/40 border border-white/10 rounded-full px-3 py-1">
+                  <span key={j} className="text-xs px-3 py-1 rounded-full" style={{
+                    color: 'rgba(255,255,255,0.4)',
+                    border: '1px solid rgba(255,255,255,0.08)'
+                  }}>
                     {a.region} {a.percent}
                   </span>
                 ))}
               </div>
               <div className="flex gap-3 mt-auto">
-                <button className="flex-1 bg-white text-black text-sm font-medium py-2.5 rounded-full hover:bg-white/90 transition-colors">
+                <button className="flex-1 font-medium py-2.5 rounded-full text-sm text-white" style={{ backgroundColor: '#2563eb' }}>
                   Invest now
                 </button>
-                <Link href={`/products/prisma/${product.slug}`} className="flex-1 border border-white/10 text-white text-sm font-medium py-2.5 rounded-full hover:bg-white/5 transition-colors text-center">
+                <Link href={`/products/prisma/${product.slug}`} className="flex-1 font-medium py-2.5 rounded-full text-sm text-white text-center" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>
                   Explore
                 </Link>
               </div>
@@ -130,14 +158,17 @@ export default function ProductsPage() {
       </section>
 
       {/* How it works */}
-      <section className="py-20 px-6 max-w-7xl mx-auto border-t border-white/5">
-        <p className="text-white/30 text-sm uppercase tracking-widest mb-12">How it works</p>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-white/5">
+      <section className="py-20 px-6 max-w-7xl mx-auto" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <p className="text-sm uppercase tracking-widest mb-12" style={{ color: '#60a5fa' }}>How it works</p>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {steps.map((step, i) => (
-            <div key={i} className="bg-black p-8">
-              <div className="text-white/20 text-sm font-mono mb-4">{step.number}</div>
+            <div key={i} className="rounded-2xl p-8" style={{
+              backgroundColor: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.08)'
+            }}>
+              <div className="text-sm font-mono mb-4" style={{ color: '#60a5fa' }}>{step.number}</div>
               <div className="text-white font-semibold text-lg mb-2">{step.title}</div>
-              <div className="text-white/40 text-sm leading-relaxed">{step.description}</div>
+              <div className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>{step.description}</div>
             </div>
           ))}
         </div>
