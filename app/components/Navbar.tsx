@@ -5,15 +5,27 @@ import Link from 'next/link'
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20)
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight
+      setScrollProgress(window.scrollY / totalHeight)
+    }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   return (
     <>
+      {/* Scroll Progress Bar */}
+      <div className="fixed top-0 left-0 z-[60] h-[2px]" style={{
+        background: 'linear-gradient(90deg, #2563eb, #60a5fa)',
+        width: `${scrollProgress * 100}%`,
+        transition: 'width 0.1s ease'
+      }} />
+
       <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style={{
         backgroundColor: scrolled ? 'rgba(18,21,31,0.95)' : 'transparent',
         backdropFilter: scrolled ? 'blur(12px)' : 'none',

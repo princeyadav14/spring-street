@@ -2,18 +2,18 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Stats from './components/Stats'
 import WhyGlobal from './components/WhyGlobal'
-import PerformanceChart from './components/PerformanceChart'
+import ChartCarousel from './components/ChartCarousel'
 import Products from './components/Products'
 import Footer from './components/Footer'
 
 export default function Home() {
   return (
-    <main className="bg-black min-h-screen">
+    <main style={{ backgroundColor: '#12151f' }} className="min-h-screen">
       <Navbar />
       <Hero />
       <Stats />
       <WhyGlobal />
-      <PerformanceChart />
+      <ChartCarousel />
       <Products />
       <Footer />
     </main>
