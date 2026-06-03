@@ -7,7 +7,7 @@ const products = [
   {
     tag: 'FLEXI-CAP',
     name: 'Global Growth Prisma',
-    description: 'A globally diversified equity allocation across developed and emerging markets. Built on a proprietary methodology, engineered to compound steadily across market cycles.',
+    description: 'A globally diversified equity allocation across developed and emerging markets. Engineered to compound steadily across market cycles.',
     cagr: '16.62%',
     ytd: '+10.0%',
     since: 'Since Jan 2020',
@@ -22,7 +22,7 @@ const products = [
   {
     tag: 'MULTI-ASSET',
     name: 'Global Core Prisma',
-    description: 'A globally diversified allocation across equities, sovereign and corporate fixed income, and commodities. Risk-optimized by design, rebalanced periodically.',
+    description: 'A globally diversified allocation across equities, sovereign and corporate fixed income, and commodities. Risk-optimized by design.',
     cagr: '16.45%',
     ytd: '+9.4%',
     since: 'Since Jan 2020',
@@ -53,77 +53,101 @@ const products = [
 
 export default function Products() {
   return (
-    <section className="bg-black py-32 border-t border-white/5">
+    <section className="py-32" style={{ backgroundColor: '#12151f' }}>
       <div className="max-w-7xl mx-auto px-6">
+
         <AnimatedSection className="mb-16">
-          <p className="text-white/30 text-sm uppercase tracking-widest mb-4">The Prisma Family</p>
+          <p className="text-sm uppercase tracking-widest mb-4" style={{ color: '#60a5fa' }}>
+            The Prisma Family
+          </p>
           <div className="flex items-end justify-between">
             <h2 className="text-4xl md:text-5xl font-bold text-white max-w-lg leading-tight">
               Global investing, treated as a scientific problem.
             </h2>
-            <Link href="/products" className="hidden md:flex items-center gap-2 text-white/40 hover:text-white text-sm transition-colors">
+            <Link href="/products" className="hidden md:flex items-center gap-2 text-sm transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }}>
               View all products →
             </Link>
           </div>
         </AnimatedSection>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {products.map((product, i) => (
             <AnimatedSection key={i} delay={i * 0.15}>
-              <div className="border border-white/10 rounded-2xl p-6 hover:border-white/20 transition-all duration-300 flex flex-col gap-6">
+              <div className="rounded-2xl p-6 flex flex-col gap-5 h-full transition-all duration-300 hover:translate-y-[-4px]" style={{
+                backgroundColor: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                boxShadow: '0 4px 24px rgba(0,0,0,0.2)'
+              }}>
+
+                {/* Tag */}
                 <div className="flex items-center justify-between">
-                  <span className="text-blue-400 text-xs font-medium tracking-widest">{product.tag}</span>
+                  <span className="text-xs font-medium tracking-widest px-3 py-1 rounded-full" style={{
+                    color: '#60a5fa',
+                    backgroundColor: 'rgba(37,99,235,0.15)',
+                    border: '1px solid rgba(37,99,235,0.2)'
+                  }}>
+                    {product.tag}
+                  </span>
                   <span className="w-2 h-2 rounded-full bg-blue-500" />
                 </div>
+
+                {/* Name + Description */}
                 <div>
                   <h3 className="text-white font-semibold text-xl mb-2">{product.name}</h3>
-                  <p className="text-white/40 text-sm leading-relaxed">{product.description}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                    {product.description}
+                  </p>
                 </div>
+
+                {/* Performance */}
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="bg-white/5 rounded-xl p-4">
-                    <div className="text-white/30 text-xs mb-1">CAGR (INR)</div>
+                  <div className="rounded-xl p-4" style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
+                    <div className="text-xs mb-1" style={{ color: 'rgba(255,255,255,0.3)' }}>CAGR (INR)</div>
                     <div className="text-white font-semibold text-xl">{product.cagr}</div>
                   </div>
-                  <div className="bg-white/5 rounded-xl p-4">
-                    <div className="text-white/30 text-xs mb-1">YTD (INR)</div>
-                    <div className="text-green-400 font-semibold text-xl">{product.ytd}</div>
+                  <div className="rounded-xl p-4" style={{ backgroundColor: 'rgba(255,255,255,0.04)' }}>
+                    <div className="text-xs mb-1" style={{ color: 'rgba(255,255,255,0.3)' }}>YTD (INR)</div>
+                    <div className="font-semibold text-xl" style={{ color: '#4ade80' }}>{product.ytd}</div>
                   </div>
                 </div>
 
                 {/* Sparkline */}
                 <div>
-                  <div className="text-white/20 text-xs mb-2">{product.since}</div>
+                  <div className="text-xs mb-2" style={{ color: 'rgba(255,255,255,0.2)' }}>{product.since}</div>
                   <ResponsiveContainer width="100%" height={50}>
                     <LineChart data={product.data}>
-                      <Line
-                        type="monotone"
-                        dataKey="v"
-                        stroke="#60a5fa"
-                        strokeWidth={1.5}
-                        dot={false}
-                      />
+                      <Line type="monotone" dataKey="v" stroke="#2563eb" strokeWidth={1.5} dot={false} />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
 
+                {/* Allocation tags */}
                 <div className="flex flex-wrap gap-2">
                   {product.allocation.map((a, j) => (
-                    <span key={j} className="text-xs text-white/40 border border-white/10 rounded-full px-3 py-1">
+                    <span key={j} className="text-xs px-3 py-1 rounded-full" style={{
+                      color: 'rgba(255,255,255,0.4)',
+                      border: '1px solid rgba(255,255,255,0.08)'
+                    }}>
                       {a.region} {a.percent}
                     </span>
                   ))}
                 </div>
+
+                {/* Actions */}
                 <div className="flex gap-3 mt-auto">
-                  <button className="flex-1 bg-white text-black text-sm font-medium py-2.5 rounded-full hover:bg-white/90 transition-colors">
+                  <button className="flex-1 font-medium py-2.5 rounded-full text-sm transition-colors text-white" style={{ backgroundColor: '#2563eb' }}>
                     Invest now
                   </button>
-                  <Link href="/products" className="flex-1 border border-white/10 text-white text-sm font-medium py-2.5 rounded-full hover:bg-white/5 transition-colors text-center">
+                  <Link href="/products" className="flex-1 font-medium py-2.5 rounded-full text-sm transition-colors text-center text-white" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>
                     Explore
                   </Link>
                 </div>
+
               </div>
             </AnimatedSection>
           ))}
         </div>
+
       </div>
     </section>
   )

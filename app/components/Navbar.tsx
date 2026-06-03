@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -12,44 +13,103 @@ export default function Navbar() {
   }, [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled 
-        ? 'bg-black/90 backdrop-blur-md border-b border-white/10' 
-        : 'bg-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <span className="text-white font-semibold text-lg tracking-tight">
-            Spring Street
-          </span>
-        </Link>
+    <>
+      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style={{
+        backgroundColor: scrolled ? 'rgba(18,21,31,0.95)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : 'none'
+      }}>
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
-        {/* Nav Links */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="/products" className="text-white/60 hover:text-white text-sm transition-colors duration-200">
-            Products
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#2563eb' }}>
+              <span className="text-white text-xs font-bold">S</span>
+            </div>
+            <span className="text-white font-semibold text-lg tracking-tight">Spring Street</span>
           </Link>
-          <Link href="/about" className="text-white/60 hover:text-white text-sm transition-colors duration-200">
-            About Us
-          </Link>
-          <Link href="/contact" className="text-white/60 hover:text-white text-sm transition-colors duration-200">
-            Contact
-          </Link>
+
+          {/* Desktop Nav Links */}
+          <div className="hidden md:flex items-center gap-8">
+            <Link href="/products" className="text-sm transition-colors duration-200" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              Products
+            </Link>
+            <Link href="/about" className="text-sm transition-colors duration-200" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              About Us
+            </Link>
+            <Link href="/contact" className="text-sm transition-colors duration-200" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              Contact
+            </Link>
+          </div>
+
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center gap-3">
+            <Link href="/login" className="text-sm transition-colors duration-200" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              Sign in
+            </Link>
+            <Link href="/contact" className="text-sm font-medium px-4 py-2 rounded-full text-white transition-colors" style={{ backgroundColor: '#2563eb' }}>
+              Request access
+            </Link>
+          </div>
+
+          {/* Mobile hamburger */}
+          <button
+            className="md:hidden flex flex-col gap-1.5 p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <span className="w-6 h-0.5 bg-white transition-all duration-300" style={{
+              transform: menuOpen ? 'rotate(45deg) translateY(8px)' : 'none'
+            }} />
+            <span className="w-6 h-0.5 bg-white transition-all duration-300" style={{
+              opacity: menuOpen ? 0 : 1
+            }} />
+            <span className="w-6 h-0.5 bg-white transition-all duration-300" style={{
+              transform: menuOpen ? 'rotate(-45deg) translateY(-8px)' : 'none'
+            }} />
+          </button>
+
         </div>
+      </nav>
 
-        {/* CTA Buttons */}
-        <div className="flex items-center gap-3">
-          <Link href="/login" className="text-white/60 hover:text-white text-sm transition-colors duration-200">
-            Sign in
-          </Link>
-          <Link href="/contact" className="bg-white text-black text-sm font-medium px-4 py-2 rounded-full hover:bg-white/90 transition-colors duration-200">
-            Request access
-          </Link>
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="fixed inset-0 z-40 flex flex-col pt-16" style={{ backgroundColor: '#12151f' }}>
+          <div className="flex flex-col gap-2 p-6">
+            <Link href="/products" onClick={() => setMenuOpen(false)}
+              className="text-white text-2xl font-medium py-4 border-b"
+              style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+              Products
+            </Link>
+            <Link href="/about" onClick={() => setMenuOpen(false)}
+              className="text-white text-2xl font-medium py-4 border-b"
+              style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+              About Us
+            </Link>
+            <Link href="/contact" onClick={() => setMenuOpen(false)}
+              className="text-white text-2xl font-medium py-4 border-b"
+              style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+              Contact
+            </Link>
+            <Link href="/faq" onClick={() => setMenuOpen(false)}
+              className="text-white text-2xl font-medium py-4 border-b"
+              style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+              FAQ
+            </Link>
+            <div className="flex flex-col gap-3 mt-8">
+              <Link href="/contact" onClick={() => setMenuOpen(false)}
+                className="text-center font-medium py-3.5 rounded-full text-white text-sm"
+                style={{ backgroundColor: '#2563eb' }}>
+                Request access
+              </Link>
+              <Link href="/login" onClick={() => setMenuOpen(false)}
+                className="text-center font-medium py-3.5 rounded-full text-white text-sm"
+                style={{ border: '1px solid rgba(255,255,255,0.2)' }}>
+                Sign in
+              </Link>
+            </div>
+          </div>
         </div>
-
-      </div>
-    </nav>
+      )}
+    </>
   )
 }
