@@ -6,21 +6,17 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#12151f' }}>
 
-      {/* Background grid */}
       <div className="absolute inset-0" style={{
         backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
         backgroundSize: '64px 64px'
       }} />
 
-      {/* Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] pointer-events-none" style={{
         background: 'radial-gradient(ellipse at center, rgba(37,99,235,0.12) 0%, transparent 70%)'
       }} />
 
-      {/* Content */}
-      <div className="relative z-10 text-center max-w-4xl mx-auto px-6 pt-24">
+      <div className="relative z-10 text-center max-w-4xl mx-auto px-6 pt-40 md:pt-48">
 
-        {/* Small label */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -31,7 +27,6 @@ export default function Hero() {
           Global Stage for Indian Capital
         </motion.p>
 
-        {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -49,7 +44,6 @@ export default function Hero() {
           </span>
         </motion.h1>
 
-        {/* Divider */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -58,7 +52,6 @@ export default function Hero() {
           style={{ backgroundColor: 'rgba(37,99,235,0.5)' }}
         />
 
-        {/* Story text */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -79,7 +72,7 @@ export default function Hero() {
           It's time to align your wealth with the world. Global portfolios, designed to provide systematic exposure across geographies, factors, and asset classes.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* CTA Buttons — Get Started first, Request access second */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -87,7 +80,7 @@ export default function Hero() {
           className="flex items-center justify-center gap-4"
         >
           <Link
-            href="/contact"
+            href="/login"
             className="font-medium px-8 py-3.5 rounded-full text-sm text-white"
             style={{
               backgroundColor: '#2563eb',
@@ -107,10 +100,10 @@ export default function Hero() {
               el.style.transform = 'translateY(0)'
             }}
           >
-            Request access →
+            Get Started with invite code
           </Link>
           <Link
-            href="/login"
+            href="/contact"
             className="font-medium px-8 py-3.5 rounded-full text-sm text-white"
             style={{
               border: '1px solid rgba(255,255,255,0.2)',
@@ -127,11 +120,10 @@ export default function Hero() {
               el.style.transform = 'translateY(0)'
             }}
           >
-            Get started with invite code
+            Request access
           </Link>
         </motion.div>
 
-        {/* Scroll hint */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

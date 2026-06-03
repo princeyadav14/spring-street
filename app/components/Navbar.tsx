@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
-export default function Navbar() {
+export default function Navbar({ forceScrolled = false }: { forceScrolled?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
@@ -11,15 +11,16 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight
-      setScrollProgress(window.scrollY / totalHeight)
+      setScrollProgress(totalHeight > 0 ? window.scrollY / totalHeight : 0)
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const isScrolled = forceScrolled || scrolled
+
   return (
     <>
-      {/* Scroll Progress Bar */}
       <div className="fixed top-0 left-0 z-[60] h-[2px]" style={{
         background: 'linear-gradient(90deg, #2563eb, #60a5fa)',
         width: `${scrollProgress * 100}%`,
@@ -27,13 +28,12 @@ export default function Navbar() {
       }} />
 
       <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style={{
-        backgroundColor: scrolled ? 'rgba(18,21,31,0.95)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : 'none'
+        backgroundColor: isScrolled ? 'rgba(18,21,31,0.95)' : 'transparent',
+        backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+        borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.06)' : 'none'
       }}>
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
-          {/* Logo */}
           <Link href="/" className="flex items-center">
             <img
               src="/springstreet-wordmark.png"
@@ -43,7 +43,6 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-8">
             {[
               { href: '/products', label: 'Products' },
@@ -59,7 +58,6 @@ export default function Navbar() {
                 onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
               >
                 {link.label}
-                {/* Underline effect */}
                 <span
                   className="absolute -bottom-1 left-0 w-0 h-[1.5px] group-hover:w-full transition-all duration-300"
                   style={{ backgroundColor: '#60a5fa' }}
@@ -68,7 +66,6 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
             <Link
               href="/login"
@@ -90,10 +87,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               className="text-sm font-medium px-4 py-2 rounded-full text-white transition-all duration-200"
-              style={{
-                backgroundColor: '#2563eb',
-                boxShadow: '0 2px 10px rgba(37,99,235,0.3)'
-              }}
+              style={{ backgroundColor: '#2563eb', boxShadow: '0 2px 10px rgba(37,99,235,0.3)' }}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLAnchorElement
                 el.style.backgroundColor = '#1d4ed8'
@@ -111,7 +105,6 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile hamburger */}
           <button
             className="md:hidden flex flex-col gap-1.5 p-2"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -126,11 +119,9 @@ export default function Navbar() {
               transform: menuOpen ? 'rotate(-45deg) translateY(-8px)' : 'none'
             }} />
           </button>
-
         </div>
       </nav>
 
-      {/* Mobile Menu */}
       {menuOpen && (
         <div className="fixed inset-0 z-40 flex flex-col pt-16" style={{ backgroundColor: '#12151f' }}>
           <div className="flex flex-col gap-2 p-6">
