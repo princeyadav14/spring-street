@@ -34,11 +34,13 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#2563eb' }}>
-              <span className="text-white text-xs font-bold">S</span>
-            </div>
-            <span className="text-white font-semibold text-lg tracking-tight">Spring Street</span>
+          <Link href="/" className="flex items-center">
+            <img 
+              src="/springstreet-wordmark.png" 
+              alt="Spring Street" 
+              className="h-10 w-auto object-contain"
+              style={{ filter: 'brightness(0) invert(1)' }}
+            />
           </Link>
 
           {/* Desktop Nav Links */}
