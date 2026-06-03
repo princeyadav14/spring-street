@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#12151f' }}>
-      
+
       {/* Background grid */}
       <div className="absolute inset-0" style={{
         backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
@@ -14,7 +14,7 @@ export default function Hero() {
 
       {/* Subtle glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none" style={{
-       background: 'radial-gradient(ellipse at center, rgba(37,99,235,0.08) 0%, transparent 70%)'
+        background: 'radial-gradient(ellipse at center, rgba(37,99,235,0.08) 0%, transparent 70%)'
       }} />
 
       {/* Content */}
@@ -69,15 +69,46 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="flex items-center justify-center gap-4 mb-16"
         >
-          <Link href="/contact"
-            className="font-medium px-8 py-3.5 rounded-full text-sm transition-all duration-200 text-white"
-            style={{ backgroundColor: '#2563eb' }}
+          <Link
+            href="/contact"
+            className="font-medium px-8 py-3.5 rounded-full text-sm text-white"
+            style={{
+              backgroundColor: '#2563eb',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 4px 15px rgba(37,99,235,0.4)'
+            }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLAnchorElement
+              el.style.backgroundColor = '#1d4ed8'
+              el.style.boxShadow = '0 6px 20px rgba(37,99,235,0.6)'
+              el.style.transform = 'translateY(-2px)'
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLAnchorElement
+              el.style.backgroundColor = '#2563eb'
+              el.style.boxShadow = '0 4px 15px rgba(37,99,235,0.4)'
+              el.style.transform = 'translateY(0)'
+            }}
           >
             Request access →
           </Link>
-          <Link href="/products"
-            className="font-medium px-8 py-3.5 rounded-full text-sm transition-all duration-200 text-white"
-            style={{ border: '1px solid rgba(255,255,255,0.2)' }}
+          <Link
+            href="/products"
+            className="font-medium px-8 py-3.5 rounded-full text-sm text-white"
+            style={{
+              border: '1px solid rgba(255,255,255,0.2)',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLAnchorElement
+              el.style.backgroundColor = 'rgba(255,255,255,0.08)'
+              el.style.transform = 'translateY(-2px)'
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLAnchorElement
+              el.style.backgroundColor = 'transparent'
+              el.style.transform = 'translateY(0)'
+            }}
           >
             View products
           </Link>
@@ -85,9 +116,9 @@ export default function Hero() {
 
         {/* Floating Dashboard Card */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.4 }}
+          initial={{ opacity: 0, y: 60, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.4, ease: [0.21, 0.47, 0.32, 0.98] }}
           className="mx-auto max-w-2xl rounded-2xl overflow-hidden"
           style={{
             backgroundColor: '#1e2235',
@@ -98,10 +129,10 @@ export default function Hero() {
           {/* Card Header */}
           <div className="flex items-center justify-between px-6 py-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
             <div className="flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-green-400" />
+              <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
               <span className="text-white text-sm font-medium">Global Growth Prisma</span>
             </div>
-            <span className="text-green-400 text-sm font-medium">+16.62% CAGR</span>
+            <span className="text-green-400 text-sm font-semibold">+16.62% CAGR</span>
           </div>
 
           {/* Card Body */}
@@ -121,15 +152,16 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Fake chart bars */}
-            <div className="flex items-end gap-1 h-16">
+            {/* Bar chart */}
+            <div className="flex items-end gap-1 h-20">
               {[40, 55, 45, 60, 50, 70, 65, 80, 72, 85, 78, 95].map((h, i) => (
                 <div
                   key={i}
-                  className="flex-1 rounded-sm"
+                  className="flex-1 rounded-sm transition-all duration-300"
                   style={{
                     height: `${h}%`,
-                    backgroundColor: i === 11 ? '#2563eb' : 'rgba(37,99,235,0.3)'
+                    backgroundColor: i === 11 ? '#2563eb' : 'rgba(37,99,235,0.25)',
+                    boxShadow: i === 11 ? '0 0 12px rgba(37,99,235,0.6)' : 'none'
                   }}
                 />
               ))}
@@ -137,10 +169,16 @@ export default function Hero() {
           </div>
 
           {/* Card Footer */}
-          <div className="px-6 py-4 flex items-center justify-between" style={{ borderTop: '1px solid rgba(255,255,255,0.06)', backgroundColor: 'rgba(0,0,0,0.2)' }}>
-            <div className="flex gap-3">
+          <div className="px-6 py-4 flex items-center justify-between" style={{
+            borderTop: '1px solid rgba(255,255,255,0.06)',
+            backgroundColor: 'rgba(0,0,0,0.2)'
+          }}>
+            <div className="flex gap-2 flex-wrap">
               {['North America 40%', 'Asia-Pacific 30%', 'Europe 15%'].map((tag, i) => (
-                <span key={i} className="text-xs px-2 py-1 rounded-full" style={{ backgroundColor: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)' }}>
+                <span key={i} className="text-xs px-2 py-1 rounded-full" style={{
+                  backgroundColor: 'rgba(255,255,255,0.06)',
+                  color: 'rgba(255,255,255,0.4)'
+                }}>
                   {tag}
                 </span>
               ))}
@@ -153,15 +191,15 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
+          transition={{ duration: 0.7, delay: 0.8 }}
           className="flex items-center justify-center gap-8 mt-12 pb-12 text-sm"
           style={{ color: 'rgba(255,255,255,0.25)' }}
         >
-          <span>IFSCA Regulated</span>
+          <span>✓ IFSCA Regulated</span>
           <span>·</span>
-          <span>SIPC $500K Protected</span>
+          <span>✓ SIPC $500K Protected</span>
           <span>·</span>
-          <span>AES-256 Encrypted</span>
+          <span>✓ AES-256 Encrypted</span>
         </motion.div>
 
       </div>

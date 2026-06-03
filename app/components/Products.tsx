@@ -73,12 +73,28 @@ export default function Products() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {products.map((product, i) => (
             <AnimatedSection key={i} delay={i * 0.15}>
-              <div className="rounded-2xl p-6 flex flex-col gap-5 h-full transition-all duration-300 hover:translate-y-[-4px]" style={{
-                backgroundColor: 'rgba(255,255,255,0.04)',
-                border: '1px solid rgba(255,255,255,0.08)',
-                boxShadow: '0 4px 24px rgba(0,0,0,0.2)'
-              }}>
-
+              <div
+                className="rounded-2xl p-6 flex flex-col gap-5 h-full"
+                style={{
+                  backgroundColor: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  boxShadow: '0 4px 24px rgba(0,0,0,0.2)',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={e => {
+                  const el = e.currentTarget as HTMLDivElement
+                  el.style.boxShadow = '0 8px 40px rgba(37,99,235,0.2), 0 0 0 1px rgba(37,99,235,0.2)'
+                  el.style.transform = 'translateY(-4px)'
+                  el.style.border = '1px solid rgba(37,99,235,0.3)'
+                }}
+                onMouseLeave={e => {
+                  const el = e.currentTarget as HTMLDivElement
+                  el.style.boxShadow = '0 4px 24px rgba(0,0,0,0.2)'
+                  el.style.transform = 'translateY(0)'
+                  el.style.border = '1px solid rgba(255,255,255,0.08)'
+                }}
+              >
                 {/* Tag */}
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-medium tracking-widest px-3 py-1 rounded-full" style={{
@@ -135,10 +151,25 @@ export default function Products() {
 
                 {/* Actions */}
                 <div className="flex gap-3 mt-auto">
-                  <button className="flex-1 font-medium py-2.5 rounded-full text-sm transition-colors text-white" style={{ backgroundColor: '#2563eb' }}>
+                  <button
+                    className="flex-1 font-medium py-2.5 rounded-full text-sm text-white"
+                    style={{
+                      backgroundColor: '#2563eb',
+                      transition: 'background-color 0.2s ease'
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.backgroundColor = '#1d4ed8')}
+                    onMouseLeave={e => (e.currentTarget.style.backgroundColor = '#2563eb')}
+                  >
                     Invest now
                   </button>
-                  <Link href="/products" className="flex-1 font-medium py-2.5 rounded-full text-sm transition-colors text-center text-white" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>
+                  <Link
+                    href="/products"
+                    className="flex-1 font-medium py-2.5 rounded-full text-sm text-center text-white"
+                    style={{
+                      border: '1px solid rgba(255,255,255,0.1)',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
                     Explore
                   </Link>
                 </div>
